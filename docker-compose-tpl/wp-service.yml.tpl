@@ -4,7 +4,7 @@ ${SITE_NAME}:
   links:
     - mysql
   volumes:
-    - \${DATA_DIR}/sites/${SITE_NAME}/wp-content:/var/www/html/wp-content
+    - \${VAR_DIR}/sites/${SITE_NAME}/wp-content:/var/www/html/wp-content
   environment:
     WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
     WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}

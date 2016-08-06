@@ -13,4 +13,4 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - "${DATA_DIR}/users.sql:/docker-entrypoint-initdb.d/users.sql:ro"
+      - "${VAR_DIR}/users.sql:/docker-entrypoint-initdb.d/users.sql:ro"
