@@ -7,7 +7,6 @@ get_compose_for_site() {
   SITE_NAME=$2
   CONFIG=$SITE_DIR/config.env
 
-  echo
   env -i $(cat "$CONFIG" | xargs) SITE_NAME="$SITE_NAME" \
     sh -c "echo \"$(cat ${ROOT_DIR}/docker-compose-tpl/wp-service.yml.tpl)\"" \
     | sed 's/^/  /'
@@ -19,16 +18,15 @@ get_grant_for_site() {
 
   env -i $(cat "$CONFIG" | xargs) \
     sh -c "echo GRANT ALL PRIVILEGES ON \${WORDPRESS_DB_NAME}.* TO \'\${WORDPRESS_DB_USER}\'@\'%\' IDENTIFIED BY \'\${WORDPRESS_DB_PASSWORD}\'\;"
-  echo
 }
 
-COMPOSE_CONTENT=$(cat "${ROOT_DIR}/docker-compose-tpl/head.yml.tpl")
+COMPOSE_CONTENT="$(cat "${ROOT_DIR}/docker-compose-tpl/head.yml.tpl")"$'\n'
 GRANT_SQL=
 
 for SITE_DIR in $(find "${VAR_DIR}/sites" -type d -not -name '_*' -depth 1); do
   SITE_NAME=${SITE_DIR##*/}
-  COMPOSE_CONTENT+=$(get_compose_for_site "$SITE_DIR" "$SITE_NAME")
-  GRANT_SQL+=$(get_grant_for_site "$SITE_DIR")
+  COMPOSE_CONTENT+="$(get_compose_for_site "$SITE_DIR" "$SITE_NAME")"$'\n'
+  GRANT_SQL+="$(get_grant_for_site "$SITE_DIR")"$'\n'
 done
 
 echo "$COMPOSE_CONTENT" > "${ROOT_DIR}/var/docker-compose.yml"
