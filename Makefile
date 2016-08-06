@@ -19,7 +19,7 @@ config:
 	@echo "Generating configs..."
 	@bin/build-configs.sh
 
-up:
+up: config
 	@echo "Starting services..."
 	@$(DOCKER_COMPOSE) up -d
 
