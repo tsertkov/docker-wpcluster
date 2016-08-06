@@ -1,6 +1,6 @@
 # Wordpress cluster
 
-```
+```bash
 // dev
 $ make
 Usage: make up|ps|stop|down
