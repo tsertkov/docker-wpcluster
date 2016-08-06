@@ -25,7 +25,7 @@ get_grant_for_site() {
 COMPOSE_CONTENT=$(cat "${ROOT_DIR}/docker-compose-tpl/head.yml.tpl")
 GRANT_SQL=
 
-for SITE_DIR in $(find "${VAR_DIR}/sites" -type d \! -name '_*' -depth 1); do
+for SITE_DIR in $(find "${VAR_DIR}/sites" -type d -not -name '_*' -depth 1); do
   SITE_NAME=${SITE_DIR##*/}
   COMPOSE_CONTENT+=$(get_compose_for_site "$SITE_DIR" "$SITE_NAME")
   GRANT_SQL+=$(get_grant_for_site "$SITE_DIR")
