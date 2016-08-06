@@ -1,4 +1,4 @@
-# Wordpress cluster
+# Wordpress containerised cluster
 
 ```bash
 // dev
