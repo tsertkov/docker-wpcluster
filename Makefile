@@ -1,16 +1,16 @@
 ifeq ($(ENV),production)
 	MACHINE = do-docker
-	DATA_DIR = /root/docker-data
+	VAR_DIR = /root/docker-data
 else
 	MACHINE = default
-	DATA_DIR = $(shell pwd)/var
+	VAR_DIR = $(shell pwd)/var
 endif
 
 PORT = 80
 PROJECT_NAME = wpcluster
 DOCKER_ENV = $(shell docker-machine env $(MACHINE) | sed -e s/export\ // -e /\^\#/d | xargs)
-DOCKER_COMPOSE = DATA_DIR=$(DATA_DIR) PORT=$(PORT) $(DOCKER_ENV) \
-	docker-compose -f "$(DATA_DIR)/docker-compose.yml" -p $(PROJECT_NAME)
+DOCKER_COMPOSE = VAR_DIR=$(VAR_DIR) PORT=$(PORT) $(DOCKER_ENV) \
+	docker-compose -f "$(VAR_DIR)/docker-compose.yml" -p $(PROJECT_NAME)
 
 all:
 	@echo "Usage: make up|status|stop|down|config"
