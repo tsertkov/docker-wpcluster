@@ -13,13 +13,13 @@ DOCKER_COMPOSE = VAR_DIR=$(VAR_DIR) PORT=$(PORT) $(DOCKER_ENV) \
 	docker-compose -f "$(VAR_DIR)/docker-compose.yml" -p $(PROJECT_NAME)
 
 all:
-	@echo "Usage: make up|ps|stop|down|config"
+	@echo "Usage: make up|ps|stop|down"
 
-config:
+_config:
 	@echo "Generating configs..."
 	@bin/build-configs.sh
 
-up: config
+up: _config
 	@echo "Starting services..."
 	@$(DOCKER_COMPOSE) up -d
 
