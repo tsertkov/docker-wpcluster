@@ -13,7 +13,7 @@ DOCKER_COMPOSE = VAR_DIR=$(VAR_DIR) PORT=$(PORT) $(DOCKER_ENV) \
 	docker-compose -f "$(VAR_DIR)/docker-compose.yml" -p $(PROJECT_NAME)
 
 all:
-	@echo "Usage: make up|status|stop|down|config"
+	@echo "Usage: make up|ps|stop|down|config"
 
 config:
 	@echo "Generating configs..."
@@ -31,5 +31,5 @@ down:
 	@echo "Removing services..."
 	@$(DOCKER_COMPOSE) down --volumes
 
-status:
+ps:
 	@$(DOCKER_COMPOSE) ps
