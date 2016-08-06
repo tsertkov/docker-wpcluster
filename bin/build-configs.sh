@@ -17,7 +17,13 @@ get_grant_for_site() {
   CONFIG=$SITE_DIR/config.env
 
   env -i $(cat "$CONFIG" | xargs) \
-    sh -c "echo GRANT ALL PRIVILEGES ON \${WORDPRESS_DB_NAME}.* TO \'\${WORDPRESS_DB_USER}\'@\'%\' IDENTIFIED BY \'\${WORDPRESS_DB_PASSWORD}\'\;"
+    sh -c '
+      echo \
+        GRANT ALL PRIVILEGES \
+        ON ${WORDPRESS_DB_NAME}.* \
+        TO \'\''${WORDPRESS_DB_USER}\'\''@\'\''%\'\'' \
+        IDENTIFIED BY \'\''${WORDPRESS_DB_PASSWORD}\'\'';
+    '
 }
 
 COMPOSE_CONTENT="$(cat "${ROOT_DIR}/docker-compose-tpl/head.yml.tpl")"$'\n'
