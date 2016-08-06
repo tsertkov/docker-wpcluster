@@ -22,7 +22,7 @@ get_grant_for_site() {
         GRANT ALL PRIVILEGES \
         ON ${WORDPRESS_DB_NAME}.* \
         TO \'\''${WORDPRESS_DB_USER}\'\''@\'\''%\'\'' \
-        IDENTIFIED BY \'\''${WORDPRESS_DB_PASSWORD}\'\'';
+        IDENTIFIED BY \'\''${WORDPRESS_DB_PASSWORD}\'\''\;
     '
 }
 
