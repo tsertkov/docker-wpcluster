@@ -3,6 +3,8 @@ ${SITE_NAME}:
   restart: unless-stopped
   links:
     - mysql
+  depends_on:
+    - db-init
   volumes:
     - \${VAR_DIR}/sites/${SITE_NAME}/wp-content:/var/www/html/wp-content
   environment:
