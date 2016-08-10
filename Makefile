@@ -27,7 +27,7 @@ up: _config
 
 stop:
 	@echo "Stopping services..."
-	@$(DDOCKER_COMPOSE) stop
+	@$(DOCKER_COMPOSE) stop
 
 down:
 	@echo "Removing services..."
