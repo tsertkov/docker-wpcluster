@@ -8,11 +8,11 @@ get_compose_for_site() {
   CONFIG=$SITE_DIR/config.env
 
   env -i $(cat "$CONFIG" | xargs) SITE_NAME="$SITE_NAME" \
-    sh -c "echo \"$(cat ${ROOT_DIR}/docker-compose-tpl/wp-service.yml.tpl)\"" \
+    sh -c "echo \"$(cat ${ROOT_DIR}/docker-compose.d/wp-service.yml.tpl)\"" \
     | sed 's/^/  /'
 }
 
-COMPOSE_CONTENT="$(cat "${ROOT_DIR}/docker-compose-tpl/head.yml.tpl")"$'\n'
+COMPOSE_CONTENT="$(cat "${ROOT_DIR}/docker-compose.d/head.yml.tpl")"$'\n'
 
 for SITE_DIR in $(find "${VAR_DIR}/sites" -mindepth 1 -maxdepth 1 -type d -not -name '_*'); do
   SITE_NAME=${SITE_DIR##*/}
