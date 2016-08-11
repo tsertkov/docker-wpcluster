@@ -1,17 +1,11 @@
-ifeq ($(ENV),production)
-	MACHINE = do-docker
-	ROOT_DIR = /root
-	VAR_DIR = /root/docker-data
-else
-	MACHINE = default
-	ROOT_DIR = $(shell pwd)
-	VAR_DIR = $(ROOT_DIR)/var
-endif
-
-PORT = 80
 PROJECT_NAME = wpcluster
-DOCKER_ENV = $(shell docker-machine env $(MACHINE) | sed -e s/export\ // -e /\^\#/d | xargs)
-DOCKER_COMPOSE = VAR_DIR=$(VAR_DIR) ROOT_DIR=$(ROOT_DIR) PORT=$(PORT) $(DOCKER_ENV) \
+ENV ?= development
+ROOT_DIR = $(shell pwd)
+VAR_DIR = $(ROOT_DIR)/var
+DOCKER_COMPOSE = \
+	ENV=$(ENV) \
+	VAR_DIR=$(VAR_DIR) \
+	ROOT_DIR=$(ROOT_DIR) \
 	docker-compose -f "$(VAR_DIR)/docker-compose.yml" -p $(PROJECT_NAME)
 
 all:

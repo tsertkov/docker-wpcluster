@@ -19,7 +19,7 @@ for SITE_DIR in $(find /sites -mindepth 1 -maxdepth 1 -type d -not -name '_*'); 
   RES=$(${MYSQL[@]} -e "$SQL")
 
   if [ $? -eq 0 -a -z "$RES" ]; then
-    SQL="GRANT ALL PRIVILEGES ON ${WORDPRESS_DB_NAME}.* TO '${WORDPRESS_DB_USER}'@'%' IDENTIFIED BY '${WORDPRESS_DB_PASSWORD}'"
+    SQL="GRANT ALL PRIVILEGES ON \`${WORDPRESS_DB_NAME}\`.* TO '${WORDPRESS_DB_USER}'@'%' IDENTIFIED BY '${WORDPRESS_DB_PASSWORD}'"
     RES=$(${MYSQL[@]} -e "$SQL")
     [ $? -eq 0 ] && echo "Created MySQL user: '${WORDPRESS_DB_USER}'"
   fi
@@ -29,7 +29,7 @@ for SITE_DIR in $(find /sites -mindepth 1 -maxdepth 1 -type d -not -name '_*'); 
   RES=$(${MYSQL[@]} -e "$SQL")
 
   if [ $? -eq 0 -a -z "$RES" ]; then
-    SQL="CREATE DATABASE ${WORDPRESS_DB_NAME}"
+    SQL="CREATE DATABASE \`${WORDPRESS_DB_NAME}\`"
     RES=$(${MYSQL[@]} -e "$SQL")
     [ $? -eq 0 ] && echo "Created MySQL database: '${WORDPRESS_DB_NAME}'"
 

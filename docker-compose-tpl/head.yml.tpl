@@ -4,12 +4,15 @@ services:
     image: jwilder/nginx-proxy
     restart: unless-stopped
     ports:
-      - ${PORT}:80
+      - 80:80
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - "${ROOT_DIR}/containers/nginx-proxy/vhost.d:/etc/nginx/vhost.d:ro"
   mysql:
     image: mariadb
     restart: unless-stopped
+    volumes:
+      - "${VAR_DIR}/mysql:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: root
   db-init:
