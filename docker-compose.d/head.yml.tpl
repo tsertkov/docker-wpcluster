@@ -7,7 +7,7 @@ services:
       - 80:80
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - "${ROOT_DIR}/containers/nginx-proxy/vhost.d:/etc/nginx/vhost.d:ro"
+      - "${VAR_DIR}/vhost.d:/etc/nginx/vhost.d:ro"
   mysql:
     image: mariadb
     restart: unless-stopped
