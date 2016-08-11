@@ -26,4 +26,4 @@ services:
       MYSQL_PASSWORD: root
     volumes:
       - "${VAR_DIR}/sites:/sites:ro"
-      - "${ROOT_DIR}/bin/db-init.sh:/db-init.sh:ro"
+      - "${ROOT_DIR}/containers/db-init/db-init.sh:/db-init.sh:ro"
