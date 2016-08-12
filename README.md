@@ -11,7 +11,6 @@
 $ make
 Usage: make up|ps|stop|down
 
-// production
-$ ENV=production make
-Usage: make up|ps|stop|down
+// launch in production mode
+$ ENV=production make up
 ```
