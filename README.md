@@ -7,10 +7,10 @@
 ## Usage
 
 ```bash
-// dev
+# dev mode is default unless ENV var is set
 $ make
 Usage: make up|ps|stop|down
 
-// launch in production mode
+# launch in production mode
 $ ENV=production make up
 ```
