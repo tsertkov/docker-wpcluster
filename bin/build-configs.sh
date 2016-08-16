@@ -13,7 +13,9 @@ get_compose_for_site() {
 }
 
 COMPOSE_CONTENT="$(cat "${ROOT_DIR}/docker-compose.d/head.yml")"$'\n'
-rm -rf "${VAR_DIR}/vhost.d"/*
+[ -e "${VAR_DIR}/vhost.d" ] \
+  && rm -rf "${VAR_DIR}/vhost.d"/* \
+  || mkdir "${VAR_DIR}/vhost.d"
 
 for SITE_DIR in $(find "${VAR_DIR}/sites" -mindepth 1 -maxdepth 1 -type d -not -name '_*'); do
   SITE_NAME=${SITE_DIR##*/}
