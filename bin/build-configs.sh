@@ -23,7 +23,7 @@ for SITE_DIR in $(find "${VAR_DIR}/sites" -mindepth 1 -maxdepth 1 -type d -not -
 
   # link site
   [ -d "${SITE_DIR}/vhost.d" ] &&
-    ln -s "${SITE_DIR}/vhost.d"/* "${VAR_DIR}/vhost.d/"
+    cp "${SITE_DIR}/vhost.d"/* "${VAR_DIR}/vhost.d/"
 done
 
 COMPOSE_CONTENT+="$(cat "${ROOT_DIR}/docker-compose.d/footer.yml")"$'\n'
