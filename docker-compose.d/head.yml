@@ -14,7 +14,7 @@ services:
     volumes:
       - "${VAR_DIR}/mysql:/var/lib/mysql"
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
   db-init:
     image: mariadb
     restart: "no"
@@ -23,7 +23,7 @@ services:
       - mysql
     environment:
       MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     volumes:
       - "${VAR_DIR}/sites:/sites:ro"
       - "${ROOT_DIR}/containers/db-init/db-init.sh:/db-init.sh:ro"

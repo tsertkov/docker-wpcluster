@@ -1,19 +1,20 @@
-PROJECT_NAME = wpcluster
 ENV ?= development
 ROOT_DIR = $(shell pwd)
-VAR_DIR = $(ROOT_DIR)/var
+CONFIG = $(ROOT_DIR)/bin/config.sh
+VAR_DIR = $(shell "$(CONFIG)" VAR_DIR)
+PROJECT_NAME = $(shell "$(CONFIG)" PROJECT_NAME)
+
 DOCKER_COMPOSE = \
-	ENV=$(ENV) \
-	VAR_DIR=$(VAR_DIR) \
-	ROOT_DIR=$(ROOT_DIR) \
-	docker-compose -f "$(VAR_DIR)/docker-compose.yml" -p $(PROJECT_NAME)
+	ENV='$(ENV)' \
+	$(shell "$(CONFIG)") \
+	docker-compose -f '$(VAR_DIR)/docker-compose.yml' -p '$(PROJECT_NAME)'
 
 all:
 	@echo "Usage: make up|ps|stop|down"
 
 _config:
 	@echo "Generating configs..."
-	@bin/build-configs.sh
+	@"$(ROOT_DIR)/bin/build-configs.sh"
 
 up: _config
 	@echo "Starting services..."
