@@ -1,8 +1,13 @@
 ${SITE_NAME}:
-  image: wordpress
+  build:
+    context: \${ROOT_DIR}/containers/wordpress
+  image: \${PROJECT_NAME}_wordpress
   restart: unless-stopped
+  hostname: ${SITE_NAME}
   links:
     - mysql
+  external_links:
+    - mailserver_mail_1:mail
   depends_on:
     - db-init
   volumes:
@@ -10,8 +15,12 @@ ${SITE_NAME}:
     - \${VAR_DIR}/sites/${SITE_NAME}/wp-content/uploads:/var/www/html/wp-content/uploads
     - \${ROOT_DIR}/containers/wordpress/apache-wordpress.conf:/etc/apache2/conf-enabled/xxx-wordpress.conf:ro
     - \${ROOT_DIR}/containers/wordpress/php.ini-\${ENV}:/usr/local/etc/php/php.ini:ro
+    - \${ROOT_DIR}/containers/wordpress/ssmtp.conf:/etc/ssmtp/ssmtp.conf:ro
   environment:
     WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
     WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
     WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
     VIRTUAL_HOST: ${VIRTUAL_HOST}
+  networks:
+    - back-tier
+    - mail-tier

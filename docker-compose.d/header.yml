@@ -8,6 +8,9 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - "${VAR_DIR}/vhost.d:/etc/nginx/vhost.d:ro"
+    networks:
+      - back-tier
+      - front-tier
   mysql:
     image: mariadb
     restart: unless-stopped
@@ -15,6 +18,8 @@ services:
       - "${VAR_DIR}/mysql:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+    networks:
+      - back-tier
   db-init:
     image: mariadb
     restart: "no"
@@ -27,3 +32,5 @@ services:
     volumes:
       - "${VAR_DIR}/sites:/sites:ro"
       - "${ROOT_DIR}/containers/db-init/db-init.sh:/db-init.sh:ro"
+    networks:
+      - back-tier

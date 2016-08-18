@@ -1,0 +1,8 @@
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
+  mail-tier:
+    external:
+      name: mailserver_default
