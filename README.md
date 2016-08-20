@@ -7,7 +7,7 @@
 
 ## Usage
 
-```bash
+```
 $ git clone https://github.com/tsertkov/docker-wpcluster.git
 $ cd docker-wpcluster
 $ cp config.env.dist config.env
