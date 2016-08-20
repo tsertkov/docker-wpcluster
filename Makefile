@@ -1,12 +1,15 @@
-ENV ?= development
 ROOT_DIR = $(shell pwd)
 CONFIG = $(ROOT_DIR)/bin/config.sh
 VAR_DIR = $(shell "$(CONFIG)" VAR_DIR)
 PROJECT_NAME = $(shell "$(CONFIG)" PROJECT_NAME)
+ENV = $(shell "$(CONFIG)" ENV)
+ifeq ($(ENV),)
+	ENV = development
+endif
 
 DOCKER_COMPOSE = \
-	ENV='$(ENV)' \
 	$(shell "$(CONFIG)") \
+	ENV='$(ENV)' \
 	docker-compose -f '$(VAR_DIR)/docker-compose.yml' -p '$(PROJECT_NAME)'
 
 all:
