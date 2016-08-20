@@ -5,9 +5,15 @@ VAR_DIR=${ROOT_DIR}/var
 CONFIG_FILE=${ROOT_DIR}/config.env
 source "$CONFIG_FILE"
 
-[ $# -gt 0 ] \
-  && echo $(eval echo "\$${1}") \
-  && exit
+if [ $# -gt 0 ]; then
+  config_var=$(eval echo -n "\$${1}")
+  if [ -n "$config_var" ]; then
+    echo -n "$config_var"
+    exit
+  fi
+
+  exit 1
+fi
 
 cat <<EOT
 ROOT_DIR='$ROOT_DIR'
