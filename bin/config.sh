@@ -12,5 +12,5 @@ source "$CONFIG_FILE"
 cat <<EOT
 ROOT_DIR='$ROOT_DIR'
 VAR_DIR='$VAR_DIR'
-$(sed "s/^\(.*=\s*\)\(.*\)\$/\1'\2'/" "$CONFIG_FILE")
+$(sed -e "/^#/d" -e "s/^\(.*=\s*\)\(.*\)\$/\1'\2'/" "$CONFIG_FILE")
 EOT
