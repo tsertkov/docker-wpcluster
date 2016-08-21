@@ -10,6 +10,7 @@ endif
 DOCKER_COMPOSE = \
 	$(shell "$(CONFIG)") \
 	ENV='$(ENV)' \
+	DEFAULT_HOST='$(shell "$(CONFIG)" DEFAULT_HOST)' \
 	docker-compose -f '$(VAR_DIR)/docker-compose.yml' -p '$(PROJECT_NAME)'
 
 all:
