@@ -17,6 +17,8 @@ services:
   mysql:
     image: mariadb
     restart: unless-stopped
+    ports:
+      - 127.0.0.1:3306:3306
     volumes:
       - "${VAR_DIR}/mysql:/var/lib/mysql"
     environment:
