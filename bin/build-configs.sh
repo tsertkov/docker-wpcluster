@@ -7,8 +7,14 @@ get_compose_for_site() {
   SITE_NAME=$2
   CONFIG=$SITE_DIR/config.env
 
+  if [ -e "${SITE_DIR}/wp-service.yml" ]; then
+    COMPOSE_TPL=${SITE_DIR}/wp-service.yml
+  else
+    COMPOSE_TPL=${ROOT_DIR}/docker-compose.d/wp-service.yml
+  fi
+
   env -i $(cat "$CONFIG" | xargs) SITE_NAME="$SITE_NAME" \
-    sh -c "echo \"$(cat ${ROOT_DIR}/docker-compose.d/wp-service.yml)\"" \
+    sh -c "echo \"$(cat ${COMPOSE_TPL})\"" \
     | sed 's/^/  /'
 }
 
