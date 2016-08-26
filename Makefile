@@ -22,7 +22,7 @@ _config:
 
 up: _config
 	@echo "Starting services..."
-	@$(DOCKER_COMPOSE) up -d
+	@$(DOCKER_COMPOSE) up -d || $(MAKE) down
 
 stop:
 	@echo "Stopping services..."
