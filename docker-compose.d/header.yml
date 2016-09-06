@@ -25,6 +25,17 @@ services:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     networks:
       - back-tier
+  db-backup:
+    image: mariadb
+    restart: "no"
+    command: /db-backup.sh
+    links:
+      - mysql
+    volumes:
+      - "${VAR_DIR}/sites:/sites"
+      - "${ROOT_DIR}/containers/db-backup/db-backup.sh:/db-backup.sh:ro"
+    networks:
+      - back-tier
   db-init:
     image: mariadb
     restart: "no"
