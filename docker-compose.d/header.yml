@@ -21,6 +21,7 @@ services:
       - 127.0.0.1:3306:3306
     volumes:
       - "${VAR_DIR}/mysql:/var/lib/mysql"
+      - "${ROOT_DIR}/containers/mysql/conf.d/:/etc/mysql/conf.d/:ro"
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     networks:
