@@ -18,12 +18,17 @@ get_compose_for_site() {
     | sed 's/^/  /'
 }
 
-COMPOSE_CONTENT="$(cat "${ROOT_DIR}/docker-compose.d/header.yml")"$'\n'
+COMPOSE_CONTENT=$(cat <<EOT
+version: "2"
+networks:
+$(cat "${ROOT_DIR}/docker-compose.d/networks.yml" | sed 's/^/  /')
+services:
+$(cat "${ROOT_DIR}"/docker-compose.d/service.*.yml | sed 's/^/  /')
+EOT)
 
 for SITE_DIR in $(find "${VAR_DIR}/sites" -mindepth 1 -maxdepth 1 -type d -not -name '_*'); do
   SITE_NAME=${SITE_DIR##*/}
-  COMPOSE_CONTENT+="$(get_compose_for_site "$SITE_DIR" "$SITE_NAME")"$'\n'
+  COMPOSE_CONTENT+=$'\n'"$(get_compose_for_site "$SITE_DIR" "$SITE_NAME")"
 done
 
-COMPOSE_CONTENT+="$(cat "${ROOT_DIR}/docker-compose.d/footer.yml")"$'\n'
 echo "$COMPOSE_CONTENT" > "${ROOT_DIR}/var/docker-compose.yml"

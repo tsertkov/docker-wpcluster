@@ -1,0 +1,15 @@
+db-init:
+  image: mariadb
+  restart: "no"
+  command: /db-init.sh
+  links:
+    - mysql
+  environment:
+    MYSQL_USER: root
+    MYSQL_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+  volumes:
+    - "${VAR_DIR}/sites:/sites:ro"
+    - "${ROOT_DIR}/containers/db-init/db-init.sh:/db-init.sh:ro"
+  networks:
+    - back-tier
+

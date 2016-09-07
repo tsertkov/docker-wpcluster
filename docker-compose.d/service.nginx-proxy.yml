@@ -1,0 +1,15 @@
+nginx-proxy:
+  image: jwilder/nginx-proxy
+  restart: unless-stopped
+  ports:
+    - 80:80
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+    - "${VAR_DIR}/nginx/vhost.d/:/etc/nginx/vhost.d/:ro"
+    - "${VAR_DIR}/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro"
+  environment:
+    DEFAULT_HOST: "${DEFAULT_HOST}"
+  networks:
+    - back-tier
+    - front-tier
+
