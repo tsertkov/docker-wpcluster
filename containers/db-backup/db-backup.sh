@@ -3,7 +3,7 @@
 MYSQL_HOST=mysql
 
 if ! mysqladmin ping -h"$MYSQL_HOST" --silent; then
-  echo Backup cancelled: MySQL is not ready
+  echo "Backup cancelled: MySQL is not ready"
   exit
 fi
 
