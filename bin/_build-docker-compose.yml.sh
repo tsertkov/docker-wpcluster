@@ -24,7 +24,8 @@ networks:
 $(cat "${ROOT_DIR}/docker-compose.d/networks.yml" | sed 's/^/  /')
 services:
 $(cat "${ROOT_DIR}"/docker-compose.d/service.*.yml | sed 's/^/  /')
-EOT)
+EOT
+)
 
 for SITE_DIR in $(find "${VAR_DIR}/sites" -mindepth 1 -maxdepth 1 -type d -not -name '_*'); do
   SITE_NAME=${SITE_DIR##*/}
