@@ -34,3 +34,6 @@ down:
 
 ps:
 	@$(DOCKER_COMPOSE) ps
+
+db-backup:
+	@$(DOCKER_COMPOSE) start db-backup
