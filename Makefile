@@ -14,7 +14,7 @@ DOCKER_COMPOSE = \
 	docker-compose -f '$(VAR_DIR)/docker-compose.yml' -p '$(PROJECT_NAME)'
 
 all:
-	@echo "Usage: make up|ps|stop|down"
+	@echo "Usage: make up|ps|stop|down|db-backup"
 
 _config:
 	@echo "Generating configs..."
